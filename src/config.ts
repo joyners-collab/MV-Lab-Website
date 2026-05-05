@@ -23,13 +23,15 @@ export const SITE = {
     },
   ],
   // Contact
-  email: 'mvlab@uw.edu',
-  twitter: '', // e.g. 'https://x.com/mvlab' — leave blank to hide
-  bluesky: '', // e.g. 'https://bsky.app/profile/mvlab.bsky.social'
-  github: '',  // e.g. 'https://github.com/mv-lab'
+  email: 'general@mvlabuw.com',
+  twitter: '',
+  bluesky: '',
+  github: '',
   address: [
     'University of Washington',
-    'Department of [Department]',
+    'Department of Neurobiology and Biophysics',
+    'Health Sciences Building, Room H310',
+    '1705 NE Pacific Street',
     'Seattle, WA 98195',
   ],
 };
