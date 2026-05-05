@@ -10,9 +10,10 @@ const people = defineCollection({
   schema: z.object({
     name: z.string(),
     role: z.string(),
-    order: z.number().default(100),       // controls sort order on Team page
+    order: z.number().default(100),
     group: z.enum([
       'PI',
+      'Team Member',
       'Postdoc',
       'Graduate Student',
       'Research Associate',
@@ -26,8 +27,8 @@ const people = defineCollection({
     orcid: z.string().optional(),
     github: z.string().optional(),
     website: z.string().url().optional(),
-    joined: z.string().optional(),         // free-form e.g. "2023"
-    current: z.boolean().default(true),    // false for alumni
+    joined: z.string().optional(),
+    current: z.boolean().default(true),
   }),
 });
 
@@ -35,10 +36,10 @@ const publications = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    authors: z.string(),                   // free-form HTML allowed (e.g. <strong> for lab members)
+    authors: z.string(),
     venue: z.string(),
     year: z.number(),
-    date: z.coerce.date().optional(),      // for sorting within a year
+    date: z.coerce.date().optional(),
     doi: z.string().optional(),
     pdf: z.string().optional(),
     preprint: z.string().url().optional(),

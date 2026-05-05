@@ -15,6 +15,7 @@ const alumni = all
 // Group order on the page
 const groupOrder = [
   'PI',
+  'Team Member',
   'Postdoc',
   'Graduate Student',
   'Research Associate',
@@ -22,16 +23,21 @@ const groupOrder = [
   'Staff',
 ] as const;
 
+// Custom display labels per group
+const groupLabels: Record<string, { single: string; plural: string }> = {
+  'PI':                   { single: 'Principal Investigator', plural: 'Principal Investigators' },
+  'Team Member':          { single: 'Team Member',            plural: 'Team Members' },
+  'Postdoc':              { single: 'Postdoc',                plural: 'Postdocs' },
+  'Graduate Student':     { single: 'Graduate Student',       plural: 'Graduate Students' },
+  'Research Associate':   { single: 'Research Associate',     plural: 'Research Associates' },
+  'Undergraduate':        { single: 'Undergraduate',          plural: 'Undergraduates' },
+  'Staff':                { single: 'Staff',                  plural: 'Staff' },
+};
+
 const grouped = groupOrder.map(g => ({
   group: g,
   members: current.filter(p => p.data.group === g),
 })).filter(g => g.members.length > 0);
-
-async function renderBio(entry: typeof current[number]) {
-  // Render the markdown body as plain text/HTML for short bios
-  const { Content } = await entry.render();
-  return Content;
-}
 ---
 
 <Base title="Team" description="The people of the MV Lab.">
@@ -43,14 +49,14 @@ async function renderBio(entry: typeof current[number]) {
   />
 
   <div class="container-site space-y-20 pb-24">
-    {grouped.map((group) => (
-      <section>
-        <h2 class="eyebrow mb-8">{group.group}{group.members.length > 1 && 's'}</h2>
-        <div class="grid gap-10 sm:gap-12 sm:grid-cols-2 lg:grid-cols-3">
-          {group.members.map(async (person) => {
-            const { Content } = await person.render();
-            // Render markdown body to a string of text for the card preview
-            return (
+    {grouped.map((group) => {
+      const label = groupLabels[group.group];
+      const heading = group.members.length > 1 ? label.plural : label.single;
+      return (
+        <section>
+          <h2 class="eyebrow mb-8">{heading}</h2>
+          <div class="grid gap-10 sm:gap-12 sm:grid-cols-2 lg:grid-cols-3">
+            {group.members.map((person) => (
               <PersonCard
                 name={person.data.name}
                 role={person.data.role}
@@ -62,11 +68,11 @@ async function renderBio(entry: typeof current[number]) {
                 website={person.data.website}
                 bio={person.body.replace(/^---[\s\S]*?---/, '').trim().slice(0, 280)}
               />
-            );
-          })}
-        </div>
-      </section>
-    ))}
+            ))}
+          </div>
+        </section>
+      );
+    })}
 
     {alumni.length > 0 && (
       <section>
