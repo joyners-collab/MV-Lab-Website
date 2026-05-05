@@ -32,9 +32,10 @@ const galleryPhotos = [
 // ----------------------------------------------------------------
 const brightupUrl = ''; // e.g. 'https://bright-up.example.org'
 
-// Hero image — drop a landscape photo at public/outreach/brightup-hero.jpg
-// Until then, a gradient placeholder shows.
+// Optional second image — landscape photo of students at the bench
+// Drop a file at public/outreach/brightup-hero.jpg to enable it.
 const brightupHero = '/outreach/brightup-hero.jpg';
+const brightupBanner = '/outreach/brightup-banner.png';
 
 const visibleTestimonials = testimonials.filter(t => t.published);
 ---
@@ -49,7 +50,18 @@ const visibleTestimonials = testimonials.filter(t => t.published);
     lede="We believe science belongs to everyone. The lab runs and contributes to programs that bring biomedical research to students, teachers, and the broader public."
   />
 
-  <!-- BRIGHT-UP hero -->
+  <!-- BRIGHT-UP banner — full-bleed -->
+  <div class="container-site pb-16 lg:pb-20">
+    <div class="overflow-hidden ring-1 ring-white/5">
+      <img
+        src={brightupBanner}
+        alt="BRIGHT-UP — Biomedical Research Internship for the Growth of High School Trainees from Underrepresented Populations"
+        class="w-full h-auto block"
+      />
+    </div>
+  </div>
+
+  <!-- BRIGHT-UP hero (with photo + headline) -->
   <section class="container-site pb-12 lg:pb-16">
     <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
       <!-- Image -->
@@ -65,22 +77,19 @@ const visibleTestimonials = testimonials.filter(t => t.published);
             class="absolute inset-0 hidden items-center justify-center"
             style="background: radial-gradient(ellipse at center, rgba(216, 50, 60, 0.15), transparent 70%);"
           >
-            <span class="font-mono text-xs uppercase tracking-widest2 text-bone-mute">
-              BRIGHT-UP photo · drop file at public/outreach/brightup-hero.jpg
+            <span class="font-mono text-xs uppercase tracking-widest2 text-bone-mute text-center px-4">
+              Optional photo · drop file at public/outreach/brightup-hero.jpg
             </span>
           </div>
         </div>
       </div>
 
-      <!-- Wordmark / headline -->
+      <!-- Headline / tagline -->
       <div class="lg:col-span-5">
         <p class="eyebrow mb-4">Featured program</p>
-        <h2 class="font-display text-5xl lg:text-6xl xl:text-7xl text-pulse leading-[0.95] tracking-tight">
-          BRIGHT-UP
-        </h2>
-        <p class="mt-6 font-display italic text-xl lg:text-2xl text-bone-dim leading-snug text-balance">
+        <h2 class="font-display text-4xl lg:text-5xl xl:text-6xl text-bone leading-[1.05] tracking-tight text-balance">
           Empowering the next generation of diverse scientific leaders.
-        </p>
+        </h2>
       </div>
     </div>
   </section>
