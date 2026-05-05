@@ -74,9 +74,10 @@ const grouped = groupOrder.map(g => ({
       );
     })}
 
-    {alumni.length > 0 && (
-      <section>
-        <h2 class="eyebrow mb-8">Alumni</h2>
+    <!-- Alumni section — always shown -->
+    <section>
+      <h2 class="eyebrow mb-8">Alumni</h2>
+      {alumni.length > 0 ? (
         <ul class="space-y-4">
           {alumni.map((p) => (
             <li class="flex flex-wrap items-baseline gap-x-4 gap-y-1 py-3 border-b border-white/10">
@@ -86,7 +87,9 @@ const grouped = groupOrder.map(g => ({
             </li>
           ))}
         </ul>
-      </section>
-    )}
+      ) : (
+        <p class="text-bone-dim italic">Past members of the lab will be listed here.</p>
+      )}
+    </section>
   </div>
 </Base>
