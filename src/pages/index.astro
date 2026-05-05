@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base>
+  <!-- HERO — video on left, headline + description on right -->
+  <section class="relative">
+    <div class="grid lg:grid-cols-12 min-h-[80vh] lg:min-h-[88vh]">
+
+      <!-- Video side -->
+      <div class="relative lg:col-span-7 bg-black overflow-hidden">
+        <video
+          class="absolute inset-0 w-full h-full object-cover"
+          autoplay
+          muted
+          loop
+          playsinline
+        >
+          <source src="/videos/hummingbird.mp4" type="video/mp4" />
+        </video>
+        <div class="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-ink to-transparent pointer-events-none hidden lg:block" />
+      </div>
+
+      <!-- Headline side -->
+      <div class="lg:col-span-5 flex items-center bg-ink">
+        <div class="px-8 sm:px-12 lg:px-16 py-16 lg:py-0 max-w-xl">
+          <p class="eyebrow mb-6">The MV Lab</p>
+          <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl leading-[1.05] text-balance">
+            Mechanisms of Heart Rate Adaptability
+          </h1>
+          <p class="mt-8 text-base lg:text-lg text-bone-dim leading-relaxed text-pretty">
+            Our team explores the fascinating mechanisms that enable the heart
+            to adapt its rate to the body's ever-changing needs. From its
+            formation in the embryo to the end of life, the heart beats
+            continuously, driven by the spontaneous electrical activity of a
+            specialized tissue known as the cardiac pacemaker. As the body's
+            most robust oscillator, the pacemaker is highly conserved across
+            vertebrates. We use an integrative approach to study the intrinsic
+            and extrinsic mechanisms that modulate pacemaker function.
+          </p>
+          <p class="mt-8 text-xs text-bone-mute font-mono">
+            Video copyright <a href="https://anandvarma.com" class="link-underline text-bone-dim hover:text-pulse" target="_blank" rel="noopener">Anand Varma</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</Base>

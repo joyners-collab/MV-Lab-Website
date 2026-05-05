@@ -1,0 +1,83 @@
+---
+// MV LAB logo — red wordmark with an ECG/heartbeat trace beneath.
+interface Props {
+  width?: string | number;
+  label?: string;
+  animate?: boolean;
+  class?: string;
+}
+const {
+  width = 180,
+  label = 'MV Lab — home',
+  animate = true,
+  class: className = '',
+} = Astro.props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 240 140"
+  width={width}
+  role="img"
+  aria-label={label}
+  class={`mv-logo ${className}`}
+>
+  <text
+    x="120"
+    y="55"
+    text-anchor="middle"
+    fill="#d8323c"
+    font-family="'JetBrains Mono', ui-monospace, monospace"
+    font-weight="600"
+    font-size="42"
+    letter-spacing="6"
+  >MV</text>
+  <text
+    x="120"
+    y="82"
+    text-anchor="middle"
+    fill="#d8323c"
+    font-family="'JetBrains Mono', ui-monospace, monospace"
+    font-weight="600"
+    font-size="14"
+    letter-spacing="14"
+  >L A B</text>
+
+  <path
+    d="M 8 115 L 70 115 L 78 105 L 86 128 L 96 75 L 106 145 L 116 115 L 232 115"
+    fill="none"
+    stroke="#d8323c"
+    stroke-width="1.6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class={animate ? 'mv-trace mv-trace-animate' : 'mv-trace'}
+  />
+</svg>
+
+<style>
+  .mv-logo {
+    display: block;
+    height: auto;
+  }
+
+  .mv-trace {
+    filter: drop-shadow(0 0 2px rgba(216, 50, 60, 0.45));
+  }
+
+  .mv-trace-animate {
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+    animation: mv-trace-draw 2.4s cubic-bezier(0.65, 0, 0.35, 1) 0.3s forwards;
+  }
+
+  @keyframes mv-trace-draw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mv-trace-animate {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+  }
+</style>

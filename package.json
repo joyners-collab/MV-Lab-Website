@@ -1,0 +1,24 @@
+{
+  "name": "mv-lab-site",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MV Lab — University of Washington / HHMI. Cardiac pacemaker biology and heart rate adaptability.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/rss": "4.0.7",
+    "@astrojs/sitemap": "3.2.1",
+    "@astrojs/tailwind": "5.1.2",
+    "astro": "4.16.10",
+    "tailwindcss": "3.4.14"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.15"
+  }
+}

@@ -1,0 +1,86 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import PersonCard from '../components/PersonCard.astro';
+import { getCollection } from 'astro:content';
+
+const all = await getCollection('people');
+const current = all
+  .filter(p => p.data.current)
+  .sort((a, b) => a.data.order - b.data.order);
+const alumni = all
+  .filter(p => !p.data.current)
+  .sort((a, b) => a.data.order - b.data.order);
+
+// Group order on the page
+const groupOrder = [
+  'PI',
+  'Postdoc',
+  'Graduate Student',
+  'Research Associate',
+  'Undergraduate',
+  'Staff',
+] as const;
+
+const grouped = groupOrder.map(g => ({
+  group: g,
+  members: current.filter(p => p.data.group === g),
+})).filter(g => g.members.length > 0);
+
+async function renderBio(entry: typeof current[number]) {
+  // Render the markdown body as plain text/HTML for short bios
+  const { Content } = await entry.render();
+  return Content;
+}
+---
+
+<Base title="Team" description="The people of the MV Lab.">
+  <Section
+    tight
+    eyebrow="Team"
+    title="Meet the lab."
+    lede="A small, growing group of physiologists, molecular biologists, and engineers united by a shared fascination with the heart."
+  />
+
+  <div class="container-site space-y-20 pb-24">
+    {grouped.map((group) => (
+      <section>
+        <h2 class="eyebrow mb-8">{group.group}{group.members.length > 1 && 's'}</h2>
+        <div class="grid gap-10 sm:gap-12 sm:grid-cols-2 lg:grid-cols-3">
+          {group.members.map(async (person) => {
+            const { Content } = await person.render();
+            // Render markdown body to a string of text for the card preview
+            return (
+              <PersonCard
+                name={person.data.name}
+                role={person.data.role}
+                photo={person.data.photo}
+                email={person.data.email}
+                scholar={person.data.scholar}
+                orcid={person.data.orcid}
+                github={person.data.github}
+                website={person.data.website}
+                bio={person.body.replace(/^---[\s\S]*?---/, '').trim().slice(0, 280)}
+              />
+            );
+          })}
+        </div>
+      </section>
+    ))}
+
+    {alumni.length > 0 && (
+      <section>
+        <h2 class="eyebrow mb-8">Alumni</h2>
+        <ul class="space-y-4">
+          {alumni.map((p) => (
+            <li class="flex flex-wrap items-baseline gap-x-4 gap-y-1 py-3 border-b border-white/10">
+              <span class="font-display text-lg text-bone">{p.data.name}</span>
+              <span class="text-sm text-bone-mute font-mono">{p.data.role}</span>
+              {p.data.joined && <span class="text-xs text-bone-mute font-mono ml-auto">{p.data.joined}</span>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </div>
+</Base>

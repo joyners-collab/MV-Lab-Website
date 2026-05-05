@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import { SITE } from '../config';
+---
+
+<Base title="Contact" description="Get in touch with the MV Lab.">
+  <Section
+    tight
+    eyebrow="Contact"
+    title="Get in touch."
+    lede="We're always happy to hear from prospective trainees, collaborators, journalists, and anyone curious about our work."
+  />
+
+  <div class="container-site grid lg:grid-cols-12 gap-12 pb-24">
+    <!-- Email & address -->
+    <div class="lg:col-span-5">
+      <h2 class="eyebrow mb-4">Email</h2>
+      <a
+        href={`mailto:${SITE.email}`}
+        class="font-display text-3xl lg:text-4xl text-pulse link-underline break-all"
+      >
+        {SITE.email}
+      </a>
+
+      <h2 class="eyebrow mt-12 mb-4">Address</h2>
+      <address class="not-italic text-bone leading-relaxed">
+        {SITE.address.map((line) => <span class="block">{line}</span>)}
+      </address>
+    </div>
+
+    <!-- Audience-specific notes -->
+    <div class="lg:col-span-7 space-y-12">
+      <div>
+        <h2 class="eyebrow mb-4">Prospective postdocs</h2>
+        <p class="text-bone-dim leading-relaxed text-pretty">
+          We are actively recruiting. Please email the PI directly with your
+          CV, a short statement of research interests (≤1 page), and the names
+          of three references. Applications are reviewed on a rolling basis.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="eyebrow mb-4">Prospective graduate students</h2>
+        <p class="text-bone-dim leading-relaxed text-pretty">
+          Graduate students join through UW's relevant doctoral programs.
+          Please apply through the program of interest and mention the MV Lab
+          in your application. We are happy to chat informally beforehand.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="eyebrow mb-4">Undergraduates</h2>
+        <p class="text-bone-dim leading-relaxed text-pretty">
+          UW undergraduates interested in research experience can email a
+          brief statement of interest and a transcript. Positions are limited
+          and depend on lab capacity.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="eyebrow mb-4">Press & media</h2>
+        <p class="text-bone-dim leading-relaxed text-pretty">
+          For press inquiries, please email the PI directly.
+        </p>
+      </div>
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,101 @@
+---
+import Logo from './Logo.astro';
+import { NAV } from '../config';
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? pathname === '/' : pathname.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="container-site flex items-center justify-between py-6 lg:py-8">
+    <!-- Logo -->
+    <a href="/" class="block shrink-0" aria-label="MV Lab — home">
+      <Logo width={140} animate={pathname === '/'} />
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden lg:block" aria-label="Primary">
+      <ul class="flex items-center gap-8">
+        {NAV.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={[
+                'text-sm tracking-wider uppercase font-mono transition-colors',
+                isActive(item.href)
+                  ? 'text-pulse'
+                  : 'text-bone hover:text-pulse',
+              ]}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- Mobile menu toggle -->
+    <button
+      type="button"
+      class="lg:hidden p-2 -mr-2 text-bone"
+      aria-label="Open menu"
+      aria-controls="mobile-nav"
+      aria-expanded="false"
+      data-menu-toggle
+    >
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M5 9h18M5 14h18M5 19h18" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile nav drawer -->
+  <nav
+    id="mobile-nav"
+    class="lg:hidden hidden border-t border-white/10 bg-ink-900/95 backdrop-blur"
+    aria-label="Primary mobile"
+  >
+    <ul class="container-site py-4 flex flex-col gap-1">
+      {NAV.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class:list={[
+              'block py-3 text-base font-mono uppercase tracking-wider',
+              isActive(item.href) ? 'text-pulse' : 'text-bone',
+            ]}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: saturate(140%) blur(8px);
+    -webkit-backdrop-filter: saturate(140%) blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+</style>
+
+<script>
+  // Tiny vanilla mobile-menu toggle — no framework required
+  const btn = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const nav = document.getElementById('mobile-nav');
+  if (btn && nav) {
+    btn.addEventListener('click', () => {
+      const open = nav.classList.toggle('hidden') === false;
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    });
+  }
+</script>

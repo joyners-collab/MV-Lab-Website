@@ -1,0 +1,65 @@
+---
+import { SITE, FOOTER_LINKS } from '../config';
+import Logo from './Logo.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-white/10 bg-ink mt-24">
+  <div class="container-site py-16 lg:py-20">
+    <div class="grid gap-12 lg:gap-8 lg:grid-cols-12">
+      <!-- Brand column -->
+      <div class="lg:col-span-4">
+        <Logo width={140} animate={false} />
+        <p class="mt-6 text-sm text-bone-dim leading-relaxed max-w-xs">
+          {SITE.tagline}.<br />Cardiac pacemaker biology across vertebrates.
+        </p>
+      </div>
+
+      <!-- Link columns -->
+      {FOOTER_LINKS.map((col) => (
+        <nav class="lg:col-span-2" aria-label={col.column}>
+          <h3 class="eyebrow mb-4">{col.column}</h3>
+          <ul class="space-y-3">
+            {col.links.map((l) => (
+              <li>
+                <a href={l.href} class="text-sm text-bone hover:text-pulse link-underline">
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ))}
+
+      <!-- Affiliations -->
+      <div class="lg:col-span-4">
+        <h3 class="eyebrow mb-4">Affiliations</h3>
+        <ul class="space-y-3">
+          {SITE.affiliations.map((a) => (
+            <li>
+              <a
+                href={a.url}
+                class="text-sm text-bone hover:text-pulse link-underline"
+                target="_blank"
+                rel="noopener"
+              >
+                {a.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row sm:justify-between gap-4 text-xs text-bone-mute font-mono">
+      <p>© {year} MV Lab. All rights reserved.</p>
+      <p>
+        <a href={`mailto:${SITE.email}`} class="hover:text-pulse link-underline">
+          {SITE.email}
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>

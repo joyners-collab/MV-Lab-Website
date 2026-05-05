@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mv-lab.example.com/sitemap-index.xml

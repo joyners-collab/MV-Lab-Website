@@ -1,0 +1,41 @@
+---
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  /** Subhead shown below title */
+  lede?: string;
+  /** Use a tighter top padding (for first section after hero) */
+  tight?: boolean;
+  /** Optional id for in-page anchors */
+  id?: string;
+  class?: string;
+}
+const { eyebrow, title, lede, tight = false, id, class: className = '' } = Astro.props;
+---
+
+<section
+  id={id}
+  class:list={[
+    'container-site',
+    tight ? 'pt-12 lg:pt-16' : 'pt-20 lg:pt-32',
+    'pb-20 lg:pb-28',
+    className,
+  ]}
+>
+  {(eyebrow || title || lede) && (
+    <header class="max-w-3xl mb-12 lg:mb-16">
+      {eyebrow && <p class="eyebrow mb-4">{eyebrow}</p>}
+      {title && (
+        <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl text-balance leading-[1.05]">
+          {title}
+        </h2>
+      )}
+      {lede && (
+        <p class="mt-6 text-lg lg:text-xl text-bone-dim text-pretty leading-relaxed">
+          {lede}
+        </p>
+      )}
+    </header>
+  )}
+  <slot />
+</section>

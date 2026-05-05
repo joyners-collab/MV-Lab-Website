@@ -1,0 +1,45 @@
+---
+interface Props {
+  title: string;
+  authors: string;
+  venue: string;
+  year: number | string;
+  doi?: string;
+  pdf?: string;
+  preprint?: string;
+  code?: string;
+  /** Featured/highlight a paper */
+  highlight?: boolean;
+}
+const { title, authors, venue, year, doi, pdf, preprint, code, highlight = false } = Astro.props;
+---
+
+<article class:list={[
+  'group py-8 border-b border-white/10',
+  highlight && 'border-l-2 border-l-pulse pl-6 -ml-6',
+]}>
+  <div class="flex items-baseline gap-4 mb-2">
+    <span class="font-mono text-xs text-pulse">{year}</span>
+    {highlight && (
+      <span class="font-mono text-[10px] uppercase tracking-widest2 text-pulse/80 px-2 py-0.5 border border-pulse/40 rounded-sm">
+        Featured
+      </span>
+    )}
+  </div>
+
+  <h3 class="font-display text-xl lg:text-2xl text-bone leading-snug text-balance">
+    {title}
+  </h3>
+
+  <p class="mt-2 text-sm text-bone-dim leading-relaxed" set:html={authors} />
+  <p class="mt-1 text-sm italic text-bone-mute">{venue}</p>
+
+  {(doi || pdf || preprint || code) && (
+    <ul class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs font-mono">
+      {doi      && <li><a href={`https://doi.org/${doi}`} class="text-bone-dim hover:text-pulse link-underline" target="_blank" rel="noopener">doi</a></li>}
+      {pdf      && <li><a href={pdf} class="text-bone-dim hover:text-pulse link-underline" target="_blank" rel="noopener">pdf</a></li>}
+      {preprint && <li><a href={preprint} class="text-bone-dim hover:text-pulse link-underline" target="_blank" rel="noopener">preprint</a></li>}
+      {code     && <li><a href={code} class="text-bone-dim hover:text-pulse link-underline" target="_blank" rel="noopener">code</a></li>}
+    </ul>
+  )}
+</article>

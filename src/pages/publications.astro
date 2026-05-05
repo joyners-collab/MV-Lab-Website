@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import PublicationItem from '../components/PublicationItem.astro';
+import { getCollection } from 'astro:content';
+
+const pubs = (await getCollection('publications'))
+  .sort((a, b) => {
+    if (b.data.year !== a.data.year) return b.data.year - a.data.year;
+    const ad = a.data.date?.getTime() ?? 0;
+    const bd = b.data.date?.getTime() ?? 0;
+    return bd - ad;
+  });
+
+// Group by year
+const byYear = pubs.reduce<Record<number, typeof pubs>>((acc, p) => {
+  (acc[p.data.year] ||= []).push(p);
+  return acc;
+}, {});
+const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
+---
+
+<Base title="Publications" description="Publications from the MV Lab.">
+  <Section
+    tight
+    eyebrow="Publications"
+    title="What we've written."
+    lede="A complete list of peer-reviewed papers, preprints, and reviews from the lab. PDFs and DOIs are linked where available."
+  >
+    <div slot="" />
+  </Section>
+
+  <div class="container-site space-y-16 pb-24">
+    {years.map((year) => (
+      <section>
+        <h2 class="font-display text-3xl text-bone mb-2">{year}</h2>
+        <div class="hairline" />
+        <div>
+          {byYear[year].map((p) => (
+            <PublicationItem
+              title={p.data.title}
+              authors={p.data.authors}
+              venue={p.data.venue}
+              year={p.data.year}
+              doi={p.data.doi}
+              pdf={p.data.pdf}
+              preprint={p.data.preprint}
+              code={p.data.code}
+              highlight={p.data.highlight}
+            />
+          ))}
+        </div>
+      </section>
+    ))}
+
+    {pubs.length === 0 && (
+      <p class="text-bone-dim">Publications coming soon.</p>
+    )}
+  </div>
+</Base>

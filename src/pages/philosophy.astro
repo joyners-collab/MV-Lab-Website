@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+
+const principles = [
+  {
+    title: 'Curiosity comes first',
+    body: 'The best science begins with a genuine question. We give people the time and space to follow what fascinates them, and we trust that good work follows.',
+  },
+  {
+    title: 'Mentorship is individual',
+    body: 'Every trainee is different. We meet people where they are and build a plan together — for the project, the career, and the life around it.',
+  },
+  {
+    title: 'Rigor over speed',
+    body: 'We would rather get it right than get it first. Careful experiments, honest analysis, and clear writing are the foundation of work we can stand behind.',
+  },
+  {
+    title: 'A lab is a community',
+    body: 'We celebrate each other\'s wins, support each other through setbacks, and treat the people around us — across departments, institutions, and disciplines — with respect.',
+  },
+];
+---
+
+<Base title="Philosophy" description="Mentorship and lab culture in the MV Lab.">
+  <Section
+    tight
+    eyebrow="Philosophy"
+    title="How we work."
+    lede="A short statement of what we believe and how we try to behave. This isn't a list of rules — it's an evolving document we revisit as the lab grows."
+  />
+
+  <div class="container-site pb-24">
+    <ol class="grid gap-12 lg:gap-16 md:grid-cols-2">
+      {principles.map((p, i) => (
+        <li class="grid grid-cols-[auto_1fr] gap-6">
+          <span class="font-mono text-pulse text-sm pt-2">
+            0{i + 1}
+          </span>
+          <div>
+            <h3 class="font-display text-2xl lg:text-3xl text-bone leading-tight">
+              {p.title}
+            </h3>
+            <p class="mt-3 text-base text-bone-dim leading-relaxed">
+              {p.body}
+            </p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+
+  <Section eyebrow="A note from the PI" title="Why this matters.">
+    <div class="prose prose-invert max-w-prose text-bone-dim">
+      <p>
+        [PI to write — a personal paragraph or two about your training,
+        the mentors who shaped you, and what you hope to pass on. This is
+        usually the most-read page on a lab site for prospective trainees,
+        so it's worth taking time to write it in your own voice.]
+      </p>
+      <p>
+        [Optional second paragraph: how decisions get made in the lab,
+        what authorship looks like, how you handle conflict, work-life
+        boundaries, etc.]
+      </p>
+    </div>
+  </Section>
+</Base>
